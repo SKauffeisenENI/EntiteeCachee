@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affichage{% endblock %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><i class="fa-solid fa-otter"></i>{{ equipes[0].surnom }}</th>
+      <th scope="col"><i class="fa-solid fa-kiwi-bird"></i>{{ equipes[1].surnom }}</th>
+      <th scope="col"><i class="fa-solid fa-dragon"></i>{{ equipes[2].surnom }}</th>
+      <th scope="col"><i class="fa-solid fa-hippo"></i>{{ equipes[3].surnom }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>{{ equipes[0].points }}</th>
+      <td>{{ equipes[1].points }}</td>
+      <td>{{ equipes[2].points }}</td>
+      <td>{{ equipes[3].points }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
