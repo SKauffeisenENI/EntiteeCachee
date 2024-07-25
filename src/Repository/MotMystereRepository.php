@@ -39,20 +39,23 @@ class MotMystereRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return MotMystere[] Returns an array of MotMystere objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return MotMystere[] Returns an array of MotMystere objects
+    */
+   public function findMotRestant($equipe): array
+   {
+        $query = "SELECT mot.id, mot.mot, mot.equipe
+            FROM App\Entity\MotMystere mot
+            WHERE m.mot NOT IN (SELECT m.mot
+            FROM App\Entity\MotMystere m
+            RIGHT JOIN `equipe_mot_mystere` em on em.mot_mystere_id = m.id
+            WHERE em.equipe_id = :equipe)
+            ; ";
+       return $this->getEntityManager()->createQuery($query)
+           ->setParameter('equipe', $equipe)
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?MotMystere
 //    {

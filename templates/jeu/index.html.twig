@@ -9,11 +9,29 @@
 </style>
 
 <div class="example-wrapper">
-    <ul>
-        <li><a href="{{ url("app_ajout_mot") }}">Ajouter un mot</a></li>
-    </ul>
     {{ render(url('app_ajout_mot')) }}
 </div>
+<div class="row row-cols-5 g-4">
+{% for mot in listeMot %}
+<div class="card text-center col">
+  <div class="card-body">
+    <h5 class="card-title">{{ mot.mot }}</h5>
+    <form action="{{ path("app_jeu_reponse", {'id': mot.id }) }}" method="GET">
+      <select class="form-select card-text" name="equipe">
+        <option value="1" selected>Équipe 1</option>
+        <option value="2">Équipe 2</option>
+        <option value="3">Équipe 3</option>
+        <option value="4">Équipe 4</option>
+      </select>
+      <input type="submit" class="btn btn-success">
+    </form>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+<hr>
+
 <table class="table">
   <thead>
     <tr>

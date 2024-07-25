@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EquipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -42,7 +44,20 @@ class Equipe implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $surnom;
 
-    private $points;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $points = 0;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=MotMystere::class)
+     */
+    private $motsValide;
+
+    public function __construct()
+    {
+        $this->motsValide = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +168,30 @@ class Equipe implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPoints(string $points): self
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MotMystere>
+     */
+    public function getMotsValide(): Collection
+    {
+        return $this->motsValide;
+    }
+
+    public function addMotsValide(MotMystere $motsValide): self
+    {
+        if (!$this->motsValide->contains($motsValide)) {
+            $this->motsValide[] = $motsValide;
+        }
+
+        return $this;
+    }
+
+    public function removeMotsValide(MotMystere $motsValide): self
+    {
+        $this->motsValide->removeElement($motsValide);
 
         return $this;
     }
