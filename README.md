@@ -1,3 +1,10 @@
+# Installation
+- composer install
+- modifier la variable d'environnement DATABASE_URL (.env.local)
+- php bin/console doctrine:database:create
+- php bin/console doctrine:migrations:migrate
+- symfony server:start
+
 # EntiteeCachee
 Je vous donne un liste de mots
 Cette liste elle sera visible
